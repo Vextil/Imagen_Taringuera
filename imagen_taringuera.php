@@ -1,7 +1,12 @@
 <?php
 
 # Usuario a cargar, modificar libremente
+////////////////////////////////////////
 $user = "USERNAME";
+////////////////////////////////////////
+
+# Incluir la API de Taringa! para usuarios (No oficial)
+require('taringa_user_api.php');
 
 # Decirle al explorador que estamos haciendo una imagen
 header("Content-type: image/png");
@@ -11,7 +16,7 @@ $imagename = strtolower($user);
 
 # Cachear la imagen para que cargue mas rapido
 $cachefile = 'cache/' . md5($imagename);
-$cachetime = 60 * 60; # 1 hora
+$cachetime = 30 * 60; # 30 minutos
 # Cargar desde cache si es mas "joven" que $cachetime
 if (file_exists($cachefile) && (time() - $cachetime < filemtime($cachefile))) {
 	$expire = date("Y-m-d H:i:s", strtotime ("+1 hour"));
@@ -32,20 +37,19 @@ imagealphablending( $im, true );
 imagesavealpha( $im, true );
 
 # Definir fuentes como variables
-$bold = 'fonts/bold.otf';
-$regular = 'fonts/regular.otf';
-$light = 'fonts/light.otf';
+$bold = 'fuentes/bold.otf';
+$regular = 'fuentes/regular.otf';
+$light = 'fuentes/light.otf';
 
-# Conseguir datos de la API de Vextil (Se puede usar API_Taringa (taringa_user))
-$url = "http://api.vextil.com/taringa/user/{$user}";
-$content = file_get_contents($url);
-$data = json_decode($content);
+# Conseguir datos de la API
+$data = new taringa_user_api;
+$data->process($user);
 
 # Transformar el avatar a imagen php
 $avtr = imagecreatefromjpeg($data->avatar);
 
 # Transformar el pais a imagen php
-$countries = 'countries/' . $data->pais . '.png';
+$countries = 'paises/' . $data->pais . '.png';
 $ctry = imagecreatefrompng($countries);
 
 # Definir distintos tamaños de fuente
