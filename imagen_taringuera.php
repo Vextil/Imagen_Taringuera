@@ -36,7 +36,7 @@ $im = imagecreatefrompng("background.png");
 imagealphablending( $im, true );
 imagesavealpha( $im, true );
 
-# Definir fuentes como variables
+# Directorio de fuentes
 $bold = 'fuentes/bold.otf';
 $regular = 'fuentes/regular.otf';
 $light = 'fuentes/light.otf';
@@ -52,7 +52,7 @@ $avtr = imagecreatefromjpeg($data->avatar);
 $countries = 'paises/' . $data->pais . '.png';
 $ctry = imagecreatefrompng($countries);
 
-# Definir distintos tamaños de fuente
+# Distintos tamaños de fuente
 $usrsize = "30";
 $msgsize = "11";
 
@@ -93,7 +93,7 @@ $msgdim = imagettfbbox ($msgsize, 0, $regular , $message);
 $msgwidth = abs($msgdim[4] - $usrdim[0]);
 $msgx = imagesx($im) - $msgwidth - $msgremove;
 
-# Definir distintos colores de texto
+# Definir colores de fuentes como variables
 $white = imagecolorallocate($im, 255, 255, 255);
 $black = imagecolorallocate($im, 000, 000, 000);
 $darkblue = imagecolorallocate($im, 2, 61, 78);
@@ -122,6 +122,7 @@ imagecopy ($im, $avtr, 314, 14, 0, 0, 120, 120);
 # Mostrar bandera de pais
 imagecopy ($im, $ctry, 634, 28, 0, 0, 95, 95);
 
+# Finalizar imagen
 imagepng($im);
 imagedestroy($im);
 
