@@ -6,7 +6,7 @@ $user = "USERNAME";
 ////////////////////////////////////////
 
 # Incluir la API de Taringa! para usuarios (No oficial)
-require('taringa_user_api.php');
+require('../common/taringa_user_api.php');
 
 # Decirle al explorador que estamos haciendo una imagen
 header("Content-type: image/png");
